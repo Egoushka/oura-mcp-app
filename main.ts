@@ -1,15 +1,23 @@
 import { createMcpExpressApp } from "@modelcontextprotocol/express"
 import { NodeStreamableHTTPServerTransport } from "@modelcontextprotocol/node"
-import cors from "cors"
+import { localhostAllowedHostnames } from "@modelcontextprotocol/server"
 import type { Request, Response } from "express"
 import { createServer } from "./server.js"
 import { close } from "./db.js"
 
 const port = Number.parseInt(process.env.PORT ?? "5010", 10)
-const host = process.env.HOST ?? "0.0.0.0"
+// Loopback unless told otherwise; the Docker image sets HOST=0.0.0.0.
+const host = process.env.HOST ?? "127.0.0.1"
+// Host-header allow-list against DNS rebinding, which CORS cannot stop. Loopback always
+// passes, so the image's healthcheck does; any name clients use goes in ALLOWED_HOSTS.
+const allowedHosts = [
+  ...localhostAllowedHostnames(),
+  ...(process.env.ALLOWED_HOSTS?.split(",").map((h) => h.trim()) ?? []),
+]
 
-const app = createMcpExpressApp({ host })
-app.use(cors())
+// No CORS: an MCP App's UI reaches this server through its host's postMessage bridge,
+// never by fetch, so no web page has a reason to read a response.
+const app = createMcpExpressApp({ host, allowedHosts })
 
 app.get("/healthz", (_req: Request, res: Response) => {
   res.json({ status: "ok" })
@@ -40,7 +48,7 @@ app.all("/mcp", async (req: Request, res: Response) => {
   }
 })
 
-const httpServer = app.listen(port, (err?: Error) => {
+const httpServer = app.listen(port, host, (err?: Error) => {
   if (err) {
     console.error("Failed to start:", err)
     process.exit(1)
