@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Oura Trend</title>
+</head>
+<body>
+  <main class="app">
+    <header class="bar">
+      <select id="metric" aria-label="Metric"></select>
+      <div class="range" role="group" aria-label="Range">
+        <button type="button" data-days="7">7d</button>
+        <button type="button" data-days="30">30d</button>
+        <button type="button" data-days="90">90d</button>
+      </div>
+      <span id="status" class="status" role="status"></span>
+    </header>
+
+    <section class="stats" id="stats" hidden>
+      <div><span class="k">Latest</span><span class="v" id="stat-latest">–</span></div>
+      <div><span class="k">Average</span><span class="v" id="stat-avg">–</span></div>
+      <div><span class="k">Low</span><span class="v" id="stat-min">–</span></div>
+      <div><span class="k">High</span><span class="v" id="stat-max">–</span></div>
+    </section>
+
+    <div class="chart" id="chart"></div>
+  </main>
+  <script type="module" src="/src/mcp-app.ts"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+/* Host-supplied variables win where present; the fallbacks keep the app
+   readable when a host sends none. applyHostStyleVariables() sets these. */
+:root {
+  --fg: var(--mcp-color-text, #1c1c1e);
+  --muted: var(--mcp-color-text-secondary, #6b7280);
+  --accent: var(--mcp-color-accent, #7c5cff);
+  --surface: var(--mcp-color-surface, transparent);
+  --border: var(--mcp-color-border, rgba(127, 127, 127, 0.28));
+  --radius: var(--mcp-radius, 10px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--fg);
+  background: var(--surface);
+  font-family: var(--mcp-font-sans, system-ui, -apple-system, "Segoe UI", sans-serif);
+  font-size: 14px;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+select {
+  font: inherit;
+  color: inherit;
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: transparent;
+}
+
+.range {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.range button {
+  font: inherit;
+  color: var(--muted);
+  padding: 5px 10px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.range button + button {
+  border-left: 1px solid var(--border);
+}
+
+.range button.on {
+  color: #fff;
+  background: var(--accent);
+}
+
+.status {
+  color: var(--muted);
+  margin-left: auto;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 8px;
+}
+
+.stats > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.k {
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.v {
+  font-size: 17px;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart {
+  color: var(--muted);
+}
+
+.chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.area {
+  fill: var(--accent);
+  opacity: 0.12;
+  stroke: none;
+}
+
+.grid {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+
+.tick {
+  fill: var(--muted);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Invisible but hoverable, so every day has a native tooltip. */
+.hit {
+  fill: transparent;
+}
+
+.hit:hover {
+  fill: var(--accent);
+}

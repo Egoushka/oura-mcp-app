@@ -1,0 +1,8 @@
+node_modules/
+dist/
+*.log
+.env
+
+# Private, never committed: the denylist the hooks read, and personal agent notes.
+.private-terms
+CLAUDE.local.md

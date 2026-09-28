@@ -1,0 +1,36 @@
+{
+  "name": "oura-mcp-app",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "MCP App that charts Oura Ring trends from a self-hosted warehouse",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build:ui": "cross-env INPUT=mcp-app.html vite build",
+    "build:server": "bun build server.ts main.ts db.ts --outdir dist --target node",
+    "build": "tsc --noEmit && npm run build:ui && npm run build:server",
+    "start": "node dist/main.js",
+    "dev": "bun --watch main.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": "2.0.0",
+    "@modelcontextprotocol/express": "2.0.0",
+    "@modelcontextprotocol/node": "2.0.0",
+    "@modelcontextprotocol/server": "2.0.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "pg": "^8.23.0",
+    "zod": "^4.2.0"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "2.0.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.0",
+    "@types/pg": "^8.11.10",
+    "cross-env": "^10.1.0",
+    "typescript": "^5.9.3",
+    "vite": "^6.0.0",
+    "vite-plugin-singlefile": "^2.3.0"
+  }
+}
