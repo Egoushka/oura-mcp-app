@@ -31,11 +31,15 @@ npm run build
 DATABASE_URL="postgres://user:pass@host:5432/oura" npm start
 ```
 
-Serves `POST /mcp` (Streamable HTTP) on `PORT`, default 5010, plus `/healthz`.
+Serves `POST /mcp` (Streamable HTTP) on `PORT`, default 5010, plus `/healthz`. Listens on `HOST`, default `127.0.0.1`; the Docker image sets `0.0.0.0`.
 
 ## Connect it
 
-Point an MCP client at `http://<host>:5010/mcp`. It has no authentication and serves health data: keep it on a private network. For Claude Desktop, add it as a remote MCP server; the app appears when the tool is called.
+Point an MCP client at `http://<host>:5010/mcp`. It has no authentication and serves health data: keep it on a private network.
+
+Requests whose `Host` header is not loopback get a 403 unless the name is in `ALLOWED_HOSTS` (comma-separated, no ports), e.g. `ALLOWED_HOSTS=oura.internal`. That is the DNS-rebinding guard, so list only names and addresses you control. The server sends no CORS headers: an MCP App's UI talks to its host over `postMessage`, not to this server, so no web page needs to read a response.
+
+For Claude Desktop, add it as a remote MCP server; the app appears when the tool is called.
 
 ## Layout note
 

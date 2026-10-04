@@ -35,7 +35,7 @@ function summarise(metric: MetricKey, points: { day: string; value: number }[]):
 }
 
 export function createServer(): McpServer {
-  const server = new McpServer({ name: "Oura Trends", version: "0.1.0" })
+  const server = new McpServer({ name: "Oura Trends", version: "0.2.0" })
 
   registerAppTool(
     server,

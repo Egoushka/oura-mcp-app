@@ -162,7 +162,7 @@ function handleHostContext(ctx: McpUiHostContext) {
   if (ctx.styles?.css?.fonts) applyHostFonts(ctx.styles.css.fonts)
 }
 
-const app = new App({ name: "Oura Trend", version: "0.1.0" })
+const app = new App({ name: "Oura Trend", version: "0.2.0" })
 
 app.ontoolresult = (result) => {
   const payload = readPayload(result as CallToolResult)
