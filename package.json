@@ -28,7 +28,7 @@
     "@types/node": "^22.10.0",
     "@types/pg": "^8.11.10",
     "cross-env": "^10.1.0",
-    "typescript": "^5.9.3",
+    "typescript": "^7.0.2",
     "vite": "^6.0.0",
     "vite-plugin-singlefile": "^2.3.4"
   }
